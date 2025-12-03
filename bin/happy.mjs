@@ -4,6 +4,25 @@ import { execFileSync } from 'child_process';
 import { fileURLToPath } from 'url';
 import { join, dirname } from 'path';
 
+// Check for --update or --check-update flags
+if (process.argv.includes('--update') || process.argv.includes('--check-update')) {
+  const projectRoot = dirname(dirname(fileURLToPath(import.meta.url)));
+  const updateScript = join(projectRoot, 'scripts', 'update-claude.cjs');
+
+  try {
+    execFileSync(process.execPath, [
+      updateScript,
+      ...process.argv.slice(2)
+    ], {
+      stdio: 'inherit',
+      env: process.env
+    });
+    process.exit(0);
+  } catch (error) {
+    process.exit(error.status || 1);
+  }
+}
+
 // Check if we're already running with the flags
 const hasNoWarnings = process.execArgv.includes('--no-warnings');
 const hasNoDeprecation = process.execArgv.includes('--no-deprecation');

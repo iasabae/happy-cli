@@ -65,10 +65,11 @@
     "dev:integration-test-env": "yarn build && tsx --env-file .env.integration-test src/index.ts",
     "prepublishOnly": "yarn build && yarn test",
     "release": "release-it",
-    "postinstall": "node scripts/unpack-tools.cjs"
+    "postinstall": "node scripts/unpack-tools.cjs",
+    "update-claude": "node scripts/update-claude.cjs"
   },
   "dependencies": {
-    "@anthropic-ai/claude-code": "2.0.24",
+    "@anthropic-ai/claude-code": "2.0.56",
     "@anthropic-ai/sdk": "0.65.0",
     "@modelcontextprotocol/sdk": "^1.15.1",
     "@stablelib/base64": "^2.0.1",
